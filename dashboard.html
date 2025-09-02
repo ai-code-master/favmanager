@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FavManager - 收藏夹管理</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <h1 class="logo">⚡ FavManager</h1>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="搜索收藏..." />
+                <button id="search-btn" class="btn-icon">🔍</button>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <button id="view-toggle" class="btn-icon" title="切换视图">📋</button>
+            <button id="add-bookmark" class="btn-primary">➕ 添加收藏</button>
+            <button id="menu-btn" class="btn-icon">⋮</button>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 左侧边栏 -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <div class="nav-title">快速访问</div>
+                    <ul class="nav-list">
+                        <li><a href="#" class="nav-link active" data-filter="all">📚 全部收藏 <span id="all-count">0</span></a></li>
+                        <li><a href="#" class="nav-link" data-filter="starred">⭐ 星标收藏 <span id="starred-count">0</span></a></li>
+                        <li><a href="#" class="nav-link" data-filter="recent">🕐 最近添加 <span id="recent-count">0</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">分类</div>
+                    <ul class="nav-list" id="category-list">
+                        <!-- 分类列表将在这里动态生成 -->
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">标签</div>
+                    <div class="tag-cloud" id="tag-cloud">
+                        <!-- 标签云将在这里动态生成 -->
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 右侧内容区域 -->
+        <section class="content">
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <select id="category-filter">
+                        <option value="">所有分类</option>
+                    </select>
+                    <select id="sort-select">
+                        <option value="created-desc">按创建时间（新到旧）</option>
+                        <option value="created-asc">按创建时间（旧到新）</option>
+                        <option value="title-asc">按标题（A-Z）</option>
+                        <option value="title-desc">按标题（Z-A）</option>
+                        <option value="url-asc">按网址（A-Z）</option>
+                    </select>
+                    <button id="batch-select" class="btn-secondary">批量选择</button>
+                </div>
+                
+                <div class="toolbar-right">
+                    <span class="result-info">共 <strong id="total-count">0</strong> 个收藏</span>
+                </div>
+            </div>
+
+            <!-- 收藏夹列表 -->
+            <div class="bookmarks-container">
+                <div id="bookmarks-list" class="bookmarks-list">
+                    <!-- 收藏项目将在这里动态生成 -->
+                </div>
+                
+                <!-- 空状态 -->
+                <div id="empty-state" class="empty-state hidden">
+                    <div class="empty-icon">📚</div>
+                    <div class="empty-title">还没有收藏</div>
+                    <div class="empty-description">开始保存您喜欢的网页吧</div>
+                    <button class="btn-primary">➕ 添加第一个收藏</button>
+                </div>
+                
+                <!-- 搜索无结果 -->
+                <div id="no-results" class="empty-state hidden">
+                    <div class="empty-icon">🔍</div>
+                    <div class="empty-title">没有找到相关收藏</div>
+                    <div class="empty-description">尝试修改搜索词或筛选条件</div>
+                    <button id="clear-search" class="btn-secondary">清空搜索</button>
+                </div>
+            </div>
+
+            <!-- 分页 -->
+            <div id="pagination" class="pagination hidden">
+                <button id="prev-page" class="btn-icon">‹</button>
+                <span id="page-info">第 1 页，共 1 页</span>
+                <button id="next-page" class="btn-icon">›</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 批量操作工具栏 -->
+    <div id="batch-toolbar" class="batch-toolbar hidden">
+        <div class="batch-info">
+            已选择 <strong id="selected-count">0</strong> 个项目
+        </div>
+        <div class="batch-actions">
+            <button id="batch-delete" class="btn-danger">🗑️ 删除</button>
+            <button id="batch-category" class="btn-secondary">📁 修改分类</button>
+            <button id="batch-tags" class="btn-secondary">🏷️ 修改标签</button>
+            <button id="batch-export" class="btn-secondary">📤 导出</button>
+            <button id="batch-cancel" class="btn-secondary">取消</button>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div id="context-menu" class="context-menu hidden">
+        <div class="menu-item" data-action="open">🔗 打开链接</div>
+        <div class="menu-item" data-action="open-new">🆕 新标签页打开</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" data-action="edit">✏️ 编辑</div>
+        <div class="menu-item" data-action="copy-url">📋 复制链接</div>
+        <div class="menu-item" data-action="copy-title">📝 复制标题</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" data-action="star">⭐ 加星标</div>
+        <div class="menu-item" data-action="delete">🗑️ 删除</div>
+    </div>
+
+    <!-- 编辑弹窗 -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">编辑收藏</h2>
+                <button id="modal-close" class="btn-icon">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit-title">标题</label>
+                    <input type="text" id="edit-title" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-url">网址</label>
+                    <input type="url" id="edit-url" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-description">描述</label>
+                    <textarea id="edit-description" rows="2"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-category">分类</label>
+                    <select id="edit-category">
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-tags">标签</label>
+                    <input type="text" id="edit-tags" placeholder="用逗号分隔多个标签" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-note">备注</label>
+                    <textarea id="edit-note" rows="2"></textarea>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button id="modal-cancel" class="btn-secondary">取消</button>
+                <button id="modal-save" class="btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置菜单 -->
+    <div id="settings-menu" class="dropdown-menu hidden">
+        <div class="menu-item" data-action="import">📥 导入书签</div>
+        <div class="menu-item" data-action="export">📤 导出书签</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" data-action="clear-data">🗑️ 清空所有数据</div>
+        <div class="menu-item" data-action="settings">⚙️ 设置</div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" data-action="about">ℹ️ 关于 FavManager</div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="message-toast" class="message-toast hidden">
+        <span id="message-text"></span>
+        <button id="message-close" class="btn-icon">✕</button>
+    </div>
+
+    <!-- 确认对话框 -->
+    <div id="confirm-dialog" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="confirm-title">确认操作</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-cancel" class="btn-secondary">取消</button>
+                <button id="confirm-ok" class="btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <span>加载中...</span>
+    </div>
+
+    <!-- 引入脚本 -->
+    <script src="bookmarks.js"></script>
+    <script src="storage.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
