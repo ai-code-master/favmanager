@@ -18,13 +18,13 @@ chrome.runtime.onInstalled.addListener(() => {
   // 创建右键菜单
   chrome.contextMenus.create({
     id: 'add-bookmark',
-    title: '添加到收藏夹',
+    title: chrome.i18n.getMessage('context_menu_add_bookmark'),
     contexts: ['page']
   });
 
   chrome.contextMenus.create({
     id: 'open-dashboard',
-    title: '打开收藏夹管理',
+    title: chrome.i18n.getMessage('context_menu_open_manager'),
     contexts: ['page']
   });
 });
@@ -36,7 +36,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     saveCurrentTab(tab);
   } else if (info.menuItemId === 'open-dashboard') {
     // 打开管理页面
-    chrome.tabs.create({ url: 'dashboard.html' });
+    chrome.tabs.create({ url: 'src/pages/dashboard/dashboard.html' });
   }
 });
 
@@ -82,14 +82,14 @@ async function saveCurrentTab(tab) {
         type: 'basic',
         iconUrl: 'icons/icon48.png',
         title: 'FavManager',
-        message: `已添加：${bookmark.title}`
+        message: chrome.i18n.getMessage('msg_bookmark_added', [bookmark.title])
       });
     } else {
       chrome.notifications.create({
         type: 'basic',
         iconUrl: 'icons/icon48.png',
         title: 'FavManager',
-        message: '该页面已存在于收藏夹中'
+        message: chrome.i18n.getMessage('msg_bookmark_exists')
       });
     }
   } catch (error) {

@@ -1,0 +1,364 @@
+{
+  "appName": {
+    "message": "FavManager",
+    "description": "Extension name"
+  },
+  "appDesc": {
+    "message": "A clean and efficient bookmark manager",
+    "description": "Extension description"
+  },
+  
+  "common_save": {
+    "message": "Save"
+  },
+  "common_cancel": {
+    "message": "Cancel"
+  },
+  "common_delete": {
+    "message": "Delete"
+  },
+  "common_edit": {
+    "message": "Edit"
+  },
+  "common_close": {
+    "message": "Close"
+  },
+  "common_update": {
+    "message": "Update"
+  },
+  "common_confirm": {
+    "message": "Confirm"
+  },
+  "common_loading": {
+    "message": "Loading..."
+  },
+  "common_saving": {
+    "message": "Saving..."
+  },
+  "common_updating": {
+    "message": "Updating..."
+  },
+  "common_deleting": {
+    "message": "Deleting..."
+  },
+  "common_success": {
+    "message": "Success"
+  },
+  "common_error": {
+    "message": "Error"
+  },
+
+  "popup_title": {
+    "message": "Add to Bookmarks"
+  },
+  "popup_title_edit": {
+    "message": "Edit Bookmark"
+  },
+  "popup_title_updating": {
+    "message": "🔄 FavManager - Editing existing bookmark"
+  },
+  "popup_title_adding": {
+    "message": "⚡ FavManager - Adding to bookmarks"
+  },
+
+  "field_title": {
+    "message": "Title"
+  },
+  "field_description": {
+    "message": "Description"
+  },
+  "field_url": {
+    "message": "URL"
+  },
+  "field_category": {
+    "message": "Folder"
+  },
+  "field_tags": {
+    "message": "Tags"
+  },
+  "field_note": {
+    "message": "Note"
+  },
+
+  "placeholder_title": {
+    "message": "Web page title"
+  },
+  "placeholder_description": {
+    "message": "Description"
+  },
+  "placeholder_url": {
+    "message": "URL"
+  },
+  "placeholder_tags": {
+    "message": "Enter tags, separated by commas"
+  },
+  "placeholder_note": {
+    "message": "Personal note"
+  },
+  "placeholder_search": {
+    "message": "Search bookmarks..."
+  },
+  "placeholder_folder_name": {
+    "message": "Enter folder name"
+  },
+
+  "folder_bookmarks_bar": {
+    "message": "📁 Bookmarks bar"
+  },
+  "folder_other_bookmarks": {
+    "message": "📁 Other bookmarks"
+  },
+  "folder_mobile_bookmarks": {
+    "message": "📁 Mobile bookmarks"
+  },
+
+  "button_star": {
+    "message": "⭐"
+  },
+  "button_add_bookmark": {
+    "message": "➕ Add Bookmark"
+  },
+  "button_add_first_bookmark": {
+    "message": "➕ Add first bookmark"
+  },
+  "button_batch_select": {
+    "message": "Batch Select"
+  },
+  "button_clear_search": {
+    "message": "Clear search"
+  },
+  "button_new_folder": {
+    "message": "📁+"
+  },
+
+  "menu_open_link": {
+    "message": "🔗 Open link"
+  },
+  "menu_open_new_tab": {
+    "message": "🆕 Open in new tab"
+  },
+  "menu_copy_url": {
+    "message": "📋 Copy link"
+  },
+  "menu_copy_title": {
+    "message": "📝 Copy title"
+  },
+  "menu_add_star": {
+    "message": "⭐ Add star"
+  },
+  "menu_remove_star": {
+    "message": "⭐ Remove star"
+  },
+
+  "nav_all_bookmarks": {
+    "message": "📚 All bookmarks"
+  },
+  "nav_starred": {
+    "message": "⭐ Starred"
+  },
+  "nav_recent": {
+    "message": "🕐 Recent 30 days"
+  },
+  "nav_folders": {
+    "message": "Folders"
+  },
+  "nav_tags": {
+    "message": "Tags"
+  },
+
+  "dashboard_title": {
+    "message": "⚡ FavManager - Bookmark Manager"
+  },
+  "dashboard_result_count": {
+    "message": "$COUNT$ bookmarks",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+
+  "sort_custom": {
+    "message": "Custom order (drag)"
+  },
+  "sort_date_desc": {
+    "message": "By date (newest first)"
+  },
+  "sort_date_asc": {
+    "message": "By date (oldest first)"
+  },
+  "sort_title_asc": {
+    "message": "By title (A-Z)"
+  },
+  "sort_title_desc": {
+    "message": "By title (Z-A)"
+  },
+  "sort_url_asc": {
+    "message": "By URL (A-Z)"
+  },
+
+  "view_list": {
+    "message": "List view"
+  },
+  "view_cards": {
+    "message": "Large card view"
+  },
+  "view_cards_simple": {
+    "message": "Simple card view"
+  },
+
+  "batch_selected": {
+    "message": "Selected $COUNT$ items",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "batch_delete": {
+    "message": "🗑️ Delete"
+  },
+  "batch_category": {
+    "message": "📁 Change folder"
+  },
+  "batch_tags": {
+    "message": "🏷️ Change tags"
+  },
+  "batch_export": {
+    "message": "📤 Export"
+  },
+
+  "empty_no_bookmarks": {
+    "message": "No bookmarks yet"
+  },
+  "empty_no_bookmarks_desc": {
+    "message": "Start saving your favorite web pages"
+  },
+  "empty_no_results": {
+    "message": "No related bookmarks found"
+  },
+  "empty_no_results_desc": {
+    "message": "Try modifying search terms or filter conditions"
+  },
+
+  "context_menu_add_bookmark": {
+    "message": "Add to Bookmarks"
+  },
+  "context_menu_open_manager": {
+    "message": "Open Bookmark Manager"
+  },
+
+  "link_open_dashboard": {
+    "message": "Open management page"
+  },
+  "link_search_bookmarks": {
+    "message": "Search bookmarks"
+  },
+
+  "modal_new_folder": {
+    "message": "New folder"
+  },
+  "modal_folder_name": {
+    "message": "Folder name"
+  },
+  "modal_parent_folder": {
+    "message": "Parent folder"
+  },
+  "modal_confirm_operation": {
+    "message": "Confirm operation"
+  },
+
+  "tooltip_add_star": {
+    "message": "Add star"
+  },
+  "tooltip_remove_star": {
+    "message": "Remove star"
+  },
+  "tooltip_new_folder": {
+    "message": "New folder"
+  },
+
+  "preview_title": {
+    "message": "Preview title"
+  },
+  "preview_url": {
+    "message": "Preview URL"
+  },
+  "preview_description": {
+    "message": "Preview description"
+  },
+
+  "msg_save_success": {
+    "message": "Bookmark saved successfully"
+  },
+  "msg_update_success": {
+    "message": "Updated successfully!"
+  },
+  "msg_delete_success": {
+    "message": "Deleted successfully!"
+  },
+  "msg_star_added": {
+    "message": "Star added"
+  },
+  "msg_star_removed": {
+    "message": "Star removed"
+  },
+  "msg_star_set": {
+    "message": "Star set, click save to take effect"
+  },
+  "msg_star_unset": {
+    "message": "Star setting cancelled"
+  },
+  "msg_title_required": {
+    "message": "Please enter title"
+  },
+  "msg_url_required": {
+    "message": "Please enter URL"
+  },
+  "msg_url_invalid": {
+    "message": "Please enter valid URL"
+  },
+  "msg_bookmark_exists": {
+    "message": "This page already exists in bookmarks"
+  },
+  "msg_bookmark_added": {
+    "message": "Added: $TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Example Website"
+      }
+    }
+  },
+  "msg_no_bookmark_to_delete": {
+    "message": "No bookmark found to delete"
+  },
+  "msg_operation_failed": {
+    "message": "$ACTION$ failed: $ERROR$",
+    "placeholders": {
+      "action": {
+        "content": "$1",
+        "example": "Save"
+      },
+      "error": {
+        "content": "$2",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "settings_import": {
+    "message": "📥 Import bookmarks"
+  },
+  "settings_export": {
+    "message": "📤 Export bookmarks"
+  },
+  "settings_clear_data": {
+    "message": "🗑️ Clear all data"
+  },
+  "settings_about": {
+    "message": "ℹ️ About FavManager"
+  }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="popup_title">添加到收藏夹</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡</h1>
+        </div>
+
+        <div class="content">
+            <!-- 页面信息区域 -->
+            <div class="section">
+                <div class="form-fields">
+                    <div class="form-row">
+                        <label class="field-label" data-i18n="field_title">标题</label>
+                        <input type="text" id="title" data-i18n-placeholder="placeholder_title" placeholder="网页标题" autocomplete="off">
+                    </div>
+                    <div class="form-row">
+                        <label class="field-label" data-i18n="field_description">描述</label>
+                        <textarea id="description" data-i18n-placeholder="placeholder_description" placeholder="描述" rows="2" autocomplete="off" spellcheck="false"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label class="field-label" data-i18n="field_url">网址</label>
+                        <input type="url" id="url" data-i18n-placeholder="placeholder_url" placeholder="网址" autocomplete="off">
+                    </div>
+                    <div class="form-row">
+                        <label class="field-label" data-i18n="field_category">目录</label>
+                        <select id="category">
+                            <option value="1" data-i18n="folder_bookmarks_bar">📁 书签栏</option>
+                            <option value="2" data-i18n="folder_other_bookmarks">📁 其他书签</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label class="field-label" data-i18n="field_tags">标签</label>
+                        <input type="text" id="tags" data-i18n-placeholder="placeholder_tags" placeholder="输入标签，用逗号分隔">
+                    </div>
+                    <div class="form-row">
+                        <label class="field-label" data-i18n="field_note">备注</label>
+                        <textarea id="note" data-i18n-placeholder="placeholder_note" placeholder="个人备注" rows="2" autocomplete="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="actions">
+            <button id="star-btn" class="btn btn-star">⭐</button>
+            <button id="save-btn" class="btn btn-primary" data-i18n="common_save">保存</button>
+            <button id="close-btn" class="btn btn-secondary" data-i18n="common_close">关闭</button>
+            <button id="delete-btn" class="btn btn-danger hidden" data-i18n="common_delete">删除</button>
+        </div>
+
+        <!-- 快速链接 -->
+        <div class="footer">
+            <a href="#" id="open-dashboard" data-i18n="link_open_dashboard">打开管理页面</a>
+            <span>|</span>
+            <a href="#" id="search-bookmarks" data-i18n="link_search_bookmarks">搜索收藏</a>
+        </div>
+
+        <!-- 消息提示 -->
+        <div id="message" class="message hidden"></div>
+
+        <!-- 加载状态 -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <span data-i18n="common_saving">保存中...</span>
+        </div>
+
+        <!-- 悬浮预览窗口 -->
+        <div id="preview-tooltip" class="preview-tooltip hidden">
+            <div class="preview-header">
+                <h4 id="preview-title" data-i18n="preview_title">预览标题</h4>
+                <div id="preview-url" class="preview-url" data-i18n="preview_url">预览网址</div>
+            </div>
+            <div class="preview-body">
+                <div id="preview-screenshot" class="preview-screenshot">
+                    <div class="screenshot-placeholder">📸</div>
+                </div>
+                <div id="preview-description" class="preview-description" data-i18n="preview_description">预览描述</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../core/i18n.js"></script>
+    <script src="../core/bookmarks.js"></script>
+    <script src="../core/storage.js"></script>
+    <script src="../components/tag-input.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

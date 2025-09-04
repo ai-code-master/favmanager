@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FavManager i18n Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .lang-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 3px;
+        }
+        .test-item strong {
+            color: #1976d2;
+        }
+        button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌍 FavManager 国际化测试</h2>
+        
+        <div class="lang-info">
+            <strong>当前语言环境：</strong>
+            <span id="current-language">检测中...</span>
+        </div>
+
+        <div class="test-section">
+            <h3>基础翻译测试</h3>
+            <div class="test-item">
+                <strong>应用名称：</strong>
+                <span id="app-name">-</span>
+            </div>
+            <div class="test-item">
+                <strong>应用描述：</strong>
+                <span id="app-desc">-</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>通用文本测试</h3>
+            <div class="test-item">
+                <button id="test-save" data-i18n="common_save">保存</button>
+                <button id="test-cancel" data-i18n="common_cancel">取消</button>
+                <button id="test-delete" data-i18n="common_delete">删除</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>表单字段测试</h3>
+            <div class="test-item">
+                <label data-i18n="field_title">标题：</label>
+                <input type="text" data-i18n-placeholder="placeholder_title" placeholder="网页标题">
+            </div>
+            <div class="test-item">
+                <label data-i18n="field_description">描述：</label>
+                <textarea data-i18n-placeholder="placeholder_description" placeholder="描述"></textarea>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>消息测试</h3>
+            <div class="test-item">
+                <button onclick="testMessages()">测试消息翻译</button>
+                <div id="message-output"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>API翻译测试</h3>
+            <div class="test-item">
+                <button onclick="testDirectAPI()">测试直接API调用</button>
+                <div id="api-output"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>参数化消息测试</h3>
+            <div class="test-item">
+                <button onclick="testParameterizedMessages()">测试带参数的消息</button>
+                <div id="param-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟chrome.i18n API（用于测试）
+        if (typeof chrome === 'undefined') {
+            // 加载模拟翻译数据
+            const translations = {
+                'en': {
+                    'appName': 'FavManager',
+                    'appDesc': 'A clean and efficient bookmark manager',
+                    'common_save': 'Save',
+                    'common_cancel': 'Cancel',
+                    'common_delete': 'Delete',
+                    'field_title': 'Title',
+                    'field_description': 'Description',
+                    'placeholder_title': 'Web page title',
+                    'placeholder_description': 'Description',
+                    'msg_save_success': 'Bookmark saved successfully',
+                    'msg_bookmark_added': 'Added: $TITLE$',
+                    'dashboard_result_count': '$COUNT$ bookmarks'
+                },
+                'zh-CN': {
+                    'appName': 'FavManager',
+                    'appDesc': '简洁高效的收藏夹管理器',
+                    'common_save': '保存',
+                    'common_cancel': '取消',
+                    'common_delete': '删除',
+                    'field_title': '标题',
+                    'field_description': '描述',
+                    'placeholder_title': '网页标题',
+                    'placeholder_description': '描述',
+                    'msg_save_success': '保存成功！',
+                    'msg_bookmark_added': '已添加：$TITLE$',
+                    'dashboard_result_count': '共 $COUNT$ 个收藏'
+                }
+            };
+
+            // 获取浏览器语言
+            const currentLang = navigator.language || 'en';
+            const langCode = currentLang.includes('zh') ? 'zh-CN' : 'en';
+            
+            // 模拟Chrome API
+            window.chrome = {
+                i18n: {
+                    getUILanguage: () => langCode,
+                    getMessage: (key, params = []) => {
+                        let message = translations[langCode][key] || translations['en'][key] || key;
+                        
+                        // 处理参数替换
+                        if (params && params.length > 0) {
+                            params.forEach((param, index) => {
+                                const placeholder = ['$TITLE$', '$COUNT$', '$ERROR$', '$ACTION$'][index];
+                                if (placeholder) {
+                                    message = message.replace(placeholder, param);
+                                }
+                            });
+                        }
+                        
+                        return message;
+                    }
+                }
+            };
+        }
+
+        // 测试函数
+        function testMessages() {
+            const output = document.getElementById('message-output');
+            const messages = [
+                chrome.i18n.getMessage('msg_save_success'),
+                chrome.i18n.getMessage('msg_title_required'),
+                chrome.i18n.getMessage('msg_url_invalid')
+            ];
+            output.innerHTML = messages.map(msg => `<div>• ${msg}</div>`).join('');
+        }
+
+        function testDirectAPI() {
+            const output = document.getElementById('api-output');
+            output.innerHTML = `
+                <div><strong>直接API调用结果：</strong></div>
+                <div>• 保存按钮: ${chrome.i18n.getMessage('common_save')}</div>
+                <div>• 应用名称: ${chrome.i18n.getMessage('appName')}</div>
+                <div>• 当前语言: ${chrome.i18n.getUILanguage()}</div>
+            `;
+        }
+
+        function testParameterizedMessages() {
+            const output = document.getElementById('param-output');
+            const bookmarkTitle = 'Google Search';
+            const count = 42;
+            
+            output.innerHTML = `
+                <div><strong>参数化消息测试：</strong></div>
+                <div>• ${chrome.i18n.getMessage('msg_bookmark_added', [bookmarkTitle])}</div>
+                <div>• ${chrome.i18n.getMessage('dashboard_result_count', [count])}</div>
+            `;
+        }
+
+        // 初始化页面
+        function initializePage() {
+            // 显示当前语言
+            document.getElementById('current-language').textContent = chrome.i18n.getUILanguage();
+            
+            // 更新应用信息
+            document.getElementById('app-name').textContent = chrome.i18n.getMessage('appName');
+            document.getElementById('app-desc').textContent = chrome.i18n.getMessage('appDesc');
+            
+            // 翻译所有带data-i18n属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                const translation = chrome.i18n.getMessage(key);
+                if (translation && translation !== key) {
+                    element.textContent = translation;
+                }
+            });
+
+            // 翻译placeholder
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                const translation = chrome.i18n.getMessage(key);
+                if (translation && translation !== key) {
+                    element.placeholder = translation;
+                }
+            });
+
+            console.log('🌍 i18n测试页面初始化完成');
+            console.log('当前语言:', chrome.i18n.getUILanguage());
+        }
+
+        // 页面加载完成后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            initializePage();
+        }
+    </script>
+</body>
+</html>

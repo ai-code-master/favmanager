@@ -1,0 +1,357 @@
+{
+  "appName": {
+    "message": "FavManager"
+  },
+  "appDesc": {
+    "message": "简洁高效的收藏夹管理器"
+  },
+  
+  "common_save": {
+    "message": "保存"
+  },
+  "common_cancel": {
+    "message": "取消"
+  },
+  "common_delete": {
+    "message": "删除"
+  },
+  "common_edit": {
+    "message": "编辑"
+  },
+  "common_close": {
+    "message": "关闭"
+  },
+  "common_update": {
+    "message": "更新"
+  },
+  "common_confirm": {
+    "message": "确认"
+  },
+  "common_loading": {
+    "message": "加载中..."
+  },
+  "common_saving": {
+    "message": "保存中..."
+  },
+  "common_updating": {
+    "message": "更新中..."
+  },
+  "common_deleting": {
+    "message": "删除中..."
+  },
+  "common_success": {
+    "message": "成功"
+  },
+  "common_error": {
+    "message": "错误"
+  },
+
+  "popup_title": {
+    "message": "添加到收藏夹"
+  },
+  "popup_title_edit": {
+    "message": "编辑书签"
+  },
+  "popup_title_updating": {
+    "message": "🔄 FavManager - 正在编辑已收藏的页面"
+  },
+  "popup_title_adding": {
+    "message": "⚡ FavManager - 正在添加收藏夹"
+  },
+
+  "field_title": {
+    "message": "标题"
+  },
+  "field_description": {
+    "message": "描述"
+  },
+  "field_url": {
+    "message": "网址"
+  },
+  "field_category": {
+    "message": "目录"
+  },
+  "field_tags": {
+    "message": "标签"
+  },
+  "field_note": {
+    "message": "备注"
+  },
+
+  "placeholder_title": {
+    "message": "网页标题"
+  },
+  "placeholder_description": {
+    "message": "描述"
+  },
+  "placeholder_url": {
+    "message": "网址"
+  },
+  "placeholder_tags": {
+    "message": "输入标签，用逗号分隔"
+  },
+  "placeholder_note": {
+    "message": "个人备注"
+  },
+  "placeholder_search": {
+    "message": "搜索收藏..."
+  },
+  "placeholder_folder_name": {
+    "message": "输入文件夹名称"
+  },
+
+  "folder_bookmarks_bar": {
+    "message": "📁 书签栏"
+  },
+  "folder_other_bookmarks": {
+    "message": "📁 其他书签"
+  },
+  "folder_mobile_bookmarks": {
+    "message": "📁 移动设备书签"
+  },
+
+  "button_star": {
+    "message": "⭐"
+  },
+  "button_add_bookmark": {
+    "message": "➕ 添加收藏"
+  },
+  "button_add_first_bookmark": {
+    "message": "➕ 添加第一个收藏"
+  },
+  "button_batch_select": {
+    "message": "批量选择"
+  },
+  "button_clear_search": {
+    "message": "清空搜索"
+  },
+  "button_new_folder": {
+    "message": "📁+"
+  },
+
+  "menu_open_link": {
+    "message": "🔗 打开链接"
+  },
+  "menu_open_new_tab": {
+    "message": "🆕 新标签页打开"
+  },
+  "menu_copy_url": {
+    "message": "📋 复制链接"
+  },
+  "menu_copy_title": {
+    "message": "📝 复制标题"
+  },
+  "menu_add_star": {
+    "message": "⭐ 加星标"
+  },
+  "menu_remove_star": {
+    "message": "⭐ 取消星标"
+  },
+
+  "nav_all_bookmarks": {
+    "message": "📚 全部收藏"
+  },
+  "nav_starred": {
+    "message": "⭐ 星标收藏"
+  },
+  "nav_recent": {
+    "message": "🕐 最近30天"
+  },
+  "nav_folders": {
+    "message": "书签栏"
+  },
+  "nav_tags": {
+    "message": "标签"
+  },
+
+  "dashboard_title": {
+    "message": "⚡ FavManager - 收藏夹管理"
+  },
+  "dashboard_result_count": {
+    "message": "共 $COUNT$ 个收藏",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+
+  "sort_custom": {
+    "message": "自定义排序（拖拽）"
+  },
+  "sort_date_desc": {
+    "message": "按创建时间（新到旧）"
+  },
+  "sort_date_asc": {
+    "message": "按创建时间（旧到新）"
+  },
+  "sort_title_asc": {
+    "message": "按标题（A-Z）"
+  },
+  "sort_title_desc": {
+    "message": "按标题（Z-A）"
+  },
+  "sort_url_asc": {
+    "message": "按网址（A-Z）"
+  },
+
+  "view_list": {
+    "message": "列表模式"
+  },
+  "view_cards": {
+    "message": "大图模式"
+  },
+  "view_cards_simple": {
+    "message": "普通模式"
+  },
+
+  "batch_selected": {
+    "message": "已选择 $COUNT$ 个项目",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "batch_delete": {
+    "message": "🗑️ 删除"
+  },
+  "batch_category": {
+    "message": "📁 修改文件夹"
+  },
+  "batch_tags": {
+    "message": "🏷️ 修改标签"
+  },
+  "batch_export": {
+    "message": "📤 导出"
+  },
+
+  "empty_no_bookmarks": {
+    "message": "还没有收藏"
+  },
+  "empty_no_bookmarks_desc": {
+    "message": "开始保存您喜欢的网页吧"
+  },
+  "empty_no_results": {
+    "message": "没有找到相关收藏"
+  },
+  "empty_no_results_desc": {
+    "message": "尝试修改搜索词或筛选条件"
+  },
+
+  "context_menu_add_bookmark": {
+    "message": "添加到收藏夹"
+  },
+  "context_menu_open_manager": {
+    "message": "打开收藏夹管理"
+  },
+
+  "link_open_dashboard": {
+    "message": "打开管理页面"
+  },
+  "link_search_bookmarks": {
+    "message": "搜索收藏"
+  },
+
+  "modal_new_folder": {
+    "message": "新建文件夹"
+  },
+  "modal_folder_name": {
+    "message": "文件夹名称"
+  },
+  "modal_parent_folder": {
+    "message": "父文件夹"
+  },
+  "modal_confirm_operation": {
+    "message": "确认操作"
+  },
+
+  "tooltip_add_star": {
+    "message": "添加星标"
+  },
+  "tooltip_remove_star": {
+    "message": "取消星标"
+  },
+  "tooltip_new_folder": {
+    "message": "新建文件夹"
+  },
+
+  "preview_title": {
+    "message": "预览标题"
+  },
+  "preview_url": {
+    "message": "预览网址"
+  },
+  "preview_description": {
+    "message": "预览描述"
+  },
+
+  "msg_save_success": {
+    "message": "保存成功！"
+  },
+  "msg_update_success": {
+    "message": "更新成功！"
+  },
+  "msg_delete_success": {
+    "message": "删除成功！"
+  },
+  "msg_star_added": {
+    "message": "已添加星标"
+  },
+  "msg_star_removed": {
+    "message": "已取消星标"
+  },
+  "msg_star_set": {
+    "message": "已设置星标，点击保存生效"
+  },
+  "msg_star_unset": {
+    "message": "已取消星标设置"
+  },
+  "msg_title_required": {
+    "message": "请输入标题"
+  },
+  "msg_url_required": {
+    "message": "请输入网址"
+  },
+  "msg_url_invalid": {
+    "message": "请输入有效的网址"
+  },
+  "msg_bookmark_exists": {
+    "message": "该页面已存在于收藏夹中"
+  },
+  "msg_bookmark_added": {
+    "message": "已添加：$TITLE$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "msg_no_bookmark_to_delete": {
+    "message": "没有找到要删除的收藏"
+  },
+  "msg_operation_failed": {
+    "message": "$ACTION$失败：$ERROR$",
+    "placeholders": {
+      "action": {
+        "content": "$1"
+      },
+      "error": {
+        "content": "$2"
+      }
+    }
+  },
+
+  "settings_import": {
+    "message": "📥 导入书签"
+  },
+  "settings_export": {
+    "message": "📤 导出书签"
+  },
+  "settings_clear_data": {
+    "message": "🗑️ 清空所有数据"
+  },
+  "settings_about": {
+    "message": "ℹ️ 关于 FavManager"
+  }
+}

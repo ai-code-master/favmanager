@@ -1,0 +1,2342 @@
+/* FavManager Dashboard 样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    background: #f5f5f5 !important;
+    width: auto !important;
+    max-height: none !important;
+}
+
+/* 顶部导航栏 */
+.header {
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 20px;
+    padding: 0 16px;
+    min-width: 400px;
+    max-width: 500px;
+    flex: 1;
+}
+
+#search-input {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 8px 0;
+    flex: 1;
+    font-size: 14px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 视图切换按钮组 */
+.view-buttons {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 4px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.view-buttons:hover {
+    background: #eeeeee;
+    border-color: rgba(74, 144, 226, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.view-btn {
+    background: transparent;
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #666;
+    transform: scale(0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.view-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(74, 144, 226, 0.1);
+    border-radius: inherit;
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-btn:hover {
+    transform: scale(1.1);
+    color: #4A90E2;
+    font-size: 16px;
+    padding: 8px;
+}
+
+.view-btn:hover::before {
+    transform: scale(1);
+}
+
+.view-btn.active {
+    background: #4A90E2;
+    color: white;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+    transform: scale(1);
+    font-size: 16px;
+    padding: 8px;
+}
+
+.view-btn.active::before {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1);
+}
+
+.view-btn.active:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.5);
+}
+
+.view-btn:active {
+    transform: scale(0.95);
+    transition-duration: 0.1s;
+}
+
+.view-btn.active:active {
+    transform: scale(1.05);
+    transition-duration: 0.1s;
+}
+
+/* 添加按钮内容的z-index确保文字在前景 */
+.view-btn {
+    z-index: 1;
+    position: relative;
+}
+
+.view-btn > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* 鼠标跟随悬浮提示样式 */
+.mouse-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+    transform: translateX(-50%) translateY(-100%);
+}
+
+.mouse-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mouse-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.85);
+}
+
+/* 涟漪点击效果 */
+.view-btn {
+    --ripple-size: 0px;
+}
+
+.view-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--ripple-size, 0px);
+    height: var(--ripple-size, 0px);
+    background: rgba(74, 144, 226, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease-out, height 0.6s ease-out;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.view-btn.active::after {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 按钮组悬停时的整体效果 */
+@keyframes button-group-glow {
+    0% {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    100% {
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+    }
+}
+
+.view-buttons:hover {
+    animation: button-group-glow 0.3s ease-out forwards;
+}
+
+/* 按钮进入动画 */
+@keyframes button-bounce-in {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.view-buttons {
+    animation: button-bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.view-btn {
+    animation: button-bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.view-btn:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.view-btn:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.view-btn:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* 按钮样式 */
+.btn-primary {
+    background: #4A90E2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #357abd;
+}
+
+.btn-secondary {
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #e8e8e8;
+}
+
+.btn-danger {
+    background: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-danger:hover {
+    background: #d9363e;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-icon:hover {
+    background: #f0f0f0;
+}
+
+/* 主内容区域 */
+.main-content {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+/* 左侧边栏 */
+.sidebar {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e0e0e0;
+    padding: 24px 0;
+    overflow-y: auto;
+}
+
+.nav-menu {
+    padding: 0 24px;
+}
+
+.nav-section {
+    margin-bottom: 32px;
+}
+
+.nav-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    color: #666;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    background: #f0f8ff;
+    color: #4A90E2;
+}
+
+.nav-link.active {
+    background: #4A90E2;
+    color: white;
+}
+
+.nav-link span {
+    background: #e0e0e0;
+    color: #666;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.nav-link.active span {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+/* 标签云 */
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag-item {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #f0f8ff;
+    color: #4A90E2;
+    border-radius: 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.tag-item:hover {
+    background: #4A90E2;
+    color: white;
+}
+
+.tag-item.active {
+    background: #4A90E2;
+    color: white;
+}
+
+/* 右侧内容区域 */
+.content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+/* 工具栏 */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.toolbar-left {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.toolbar-right {
+    font-size: 14px;
+    color: #666;
+}
+
+select {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4A90E2;
+}
+
+/* 收藏夹列表 */
+.bookmarks-container {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    min-height: 400px;
+    overflow: visible;
+}
+
+.bookmarks-list {
+    padding: 0;
+    overflow: visible;
+}
+
+.bookmark-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    max-height: 60px;
+    transform-origin: center;
+}
+
+.bookmark-item:hover {
+    background: #fafafa;
+    padding: 16px;
+    max-height: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    transform: scale(1.02);
+    position: relative;
+    will-change: transform;
+}
+
+.bookmark-item:last-child {
+    border-bottom: none;
+}
+
+.bookmark-item.selected {
+    background: #e6f7ff;
+    border-color: #4A90E2;
+}
+
+/* 批量选择模式 */
+.batch-mode .bookmark-item {
+    padding-left: 48px;
+}
+
+.bookmark-checkbox {
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+}
+
+.bookmark-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 8px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .bookmark-left {
+    margin-right: 12px;
+}
+
+.favicon-container {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin-bottom: 4px;
+    margin-top: 2px;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .favicon-container {
+    transform: scale(1.25);
+    margin-bottom: 8px;
+}
+
+.bookmark-favicon {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .bookmark-favicon {
+    transform: scale(1.25);
+}
+
+.bookmark-favicon.default {
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #666;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .bookmark-favicon.default {
+    transform: scale(1.25);
+}
+
+.bookmark-screenshot {
+    width: 60px;
+    height: 45px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.bookmark-item:hover .bookmark-screenshot {
+    width: 80px;
+    height: 60px;
+    opacity: 1;
+}
+
+.screenshot-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 移除缩略图单独的悬停效果，避免与卡片悬停冲突 */
+.screenshot-thumb:hover {
+    /* transform: scale(1.05); - 已移除，避免双重放大效果 */
+}
+
+.bookmark-info {
+    flex: 1;
+    min-width: 0;
+    transition: all 0.3s ease;
+}
+
+.bookmark-title {
+    font-weight: 500;
+    margin-bottom: 2px;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.2;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .bookmark-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.bookmark-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.bookmark-title a:hover {
+    color: #4A90E2;
+}
+
+.bookmark-url {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 2px;
+    word-break: break-all;
+    line-height: 1.2;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.bookmark-item:hover .bookmark-url {
+    font-size: 12px;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    opacity: 1;
+}
+
+.bookmark-description {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    transition: all 0.3s ease;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.bookmark-item:hover .bookmark-description {
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    opacity: 1;
+    max-height: 100px;
+}
+
+.bookmark-note {
+    font-size: 12px;
+    color: #666;
+    background: #f9f9f9;
+    padding: 4px 6px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.bookmark-item:hover .bookmark-note {
+    font-size: 13px;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    opacity: 1;
+    max-height: 100px;
+}
+
+.bookmark-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .bookmark-meta {
+    gap: 12px;
+    font-size: 12px;
+}
+
+.bookmark-category {
+    background: #f0f8ff;
+    color: #4A90E2;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.bookmark-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.bookmark-tag {
+    background: #f0f0f0;
+    color: #666;
+    padding: 1px 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .bookmark-tag {
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 11px;
+}
+
+.bookmark-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 16px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.bookmark-item:hover .bookmark-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: #f0f0f0;
+}
+
+/* 空状态 */
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    color: #999;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.empty-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.empty-description {
+    margin-bottom: 24px;
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+    padding: 16px;
+}
+
+/* 批量操作工具栏 */
+.batch-toolbar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.batch-info {
+    font-size: 14px;
+}
+
+.batch-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.batch-actions button {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+/* 右键菜单 */
+.context-menu {
+    position: fixed;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background: #f0f0f0;
+}
+
+.menu-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 4px 0;
+}
+
+/* 弹窗 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    min-width: 500px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* 表单样式 */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+.field-label {
+    flex-shrink: 0;
+    width: auto;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 13px;
+    line-height: 1.2;
+    text-align: left;
+    margin: 0 0 6px 0;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #4A90E2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+/* 下拉菜单 */
+.dropdown-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 200;
+    min-width: 150px;
+}
+
+/* 消息提示 */
+.message-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.message-toast.success {
+    background: #52c41a;
+}
+
+.message-toast.error {
+    background: #ff4d4f;
+}
+
+.message-toast.warning {
+    background: #faad14;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 加载状态 */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #4A90E2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 星标相关样式 */
+.star-icon {
+    color: #ffc107;
+    font-size: 12px;
+    margin-left: 4px;
+    transition: all 0.3s ease;
+}
+
+.bookmark-item:hover .star-icon {
+    font-size: 14px;
+    margin-left: 6px;
+}
+
+.star-btn {
+    background: #ffffff;
+    color: #ffc107;
+    border: 2px solid #e0e0e0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.star-btn:hover {
+    background: #fff3cd;
+    border-color: #ffc107;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2);
+}
+
+.star-btn.starred {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: white;
+    border-color: #ffc107;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+}
+
+.star-btn.starred:hover {
+    background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4);
+    transform: translateY(-1px);
+}
+
+/* 拖拽相关样式 */
+.bookmark-item {
+    cursor: move;
+    position: relative;
+}
+
+.view-cards .bookmark-item {
+    cursor: move;
+}
+
+/* 自定义排序模式提示 */
+.custom-sort-hint {
+    background: #f0f8ff;
+    border: 1px solid #4A90E2;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    color: #4A90E2;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-sort-hint.hidden {
+    display: none;
+}
+
+.bookmark-item.dragging {
+    opacity: 0.7;
+    transform: rotate(1deg) scale(1.02);
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: none;
+}
+
+.bookmark-item.drag-over {
+    background: rgba(74, 144, 226, 0.05);
+}
+
+/* 拖拽放置指示器 - 更细更精确 */
+.bookmark-item.drop-above::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #4A90E2;
+    z-index: 10;
+    transition: none;
+}
+
+.bookmark-item.drop-below::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #4A90E2;
+    z-index: 10;
+    transition: none;
+}
+
+/* 拖拽时禁用文本选择 */
+.bookmark-item.dragging * {
+    user-select: none;
+    pointer-events: none;
+}
+
+.folder-drop-zone {
+    background: rgba(74, 144, 226, 0.1);
+    border: 2px dashed #4A90E2;
+    border-radius: 4px;
+}
+
+.folder-actions {
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 8px;
+}
+
+.folder-item {
+    position: relative;
+}
+
+/* 书签栏和其他书签区域分隔 */
+.folder-item[data-folder-id="2"] {
+    margin-top: 12px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 8px;
+}
+
+.folder-item[data-level="2"] .nav-link {
+    border-left: 2px solid #e3e6ea;
+}
+
+.folder-item[data-level="3"] .nav-link {
+    border-left: 2px solid #d1d5db;
+}
+
+.folder-item[data-level="4"] .nav-link {
+    border-left: 2px solid #c4c4c4;
+}
+
+.folder-item:hover .folder-controls {
+    opacity: 1;
+}
+
+.folder-controls {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    gap: 4px;
+}
+
+.folder-controls button {
+    padding: 2px 4px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.folder-controls button:hover {
+    background: #f0f0f0;
+}
+
+/* TagInput 智能标签输入组件样式 */
+.tag-input-container {
+    position: relative;
+    min-height: 48px;
+    border: 2px solid #e3e6ea;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.tag-input-container:focus-within {
+    outline: none;
+    border-color: #4A90E2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+    transform: translateY(-1px);
+    background: #ffffff;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.tag-item {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    gap: 6px;
+    animation: tagAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes tagAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.tag-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.tag-item:hover::before {
+    left: 100%;
+}
+
+.tag-name {
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.tag-remove {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+}
+
+.tag-remove:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tag-remove:active {
+    transform: scale(0.95) rotate(90deg);
+}
+
+.tag-text-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: inherit;
+    min-width: 150px;
+    padding: 0;
+    font-weight: normal;
+    color: #333;
+}
+
+.tag-text-input::placeholder {
+    color: #9ca3af;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.tag-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e3e6ea;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 8px;
+    backdrop-filter: blur(20px);
+}
+
+.tag-suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    margin: 4px 8px;
+}
+
+.tag-suggestion:hover,
+.tag-suggestion.selected {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    transform: translateX(4px);
+}
+
+.suggestion-name {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.suggestion-name::before {
+    content: '#';
+    color: #667eea;
+    font-weight: 700;
+}
+
+.suggestion-count {
+    background: linear-gradient(135deg, #e3e6ea, #d1d5db);
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    min-width: 24px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tag-suggestion.selected .suggestion-count {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.tag-input-container:focus-within .tag-text-input::placeholder {
+    color: #4A90E2;
+}
+
+.tag-input-container:empty .tag-text-input {
+    width: 100%;
+}
+
+/* 编辑模态窗口 - 完全按照popup.html风格 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+/* 编辑模态窗口样式 - 确保只影响模态窗口内容 */
+#edit-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#edit-modal.hidden {
+    display: none !important;
+}
+
+#edit-modal .modal-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+/* 编辑模态窗口内容样式 - 完全复制 popup.css */
+#edit-modal .container {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 580px !important;
+    max-height: 500px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+    overflow-y: auto !important;
+    animation: modalSlideIn 0.3s ease-out !important;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 编辑模态窗口头部样式 */
+#edit-modal .container .header {
+    padding: 12px 24px !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    text-align: center !important;
+    border-radius: 0 0 8px 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+#edit-modal .container .header h1 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    letter-spacing: 0.5px !important;
+    color: white !important;
+}
+
+/* 编辑模态窗口内容区域 */
+#edit-modal .container .content {
+    padding: 16px 24px !important;
+}
+
+#edit-modal .container .section {
+    margin-bottom: 20px !important;
+}
+
+#edit-modal .container .section:last-child {
+    margin-bottom: 0 !important;
+}
+
+#edit-modal .container .form-fields {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+#edit-modal .container .form-row {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    margin-bottom: 14px !important;
+    position: relative !important;
+}
+
+#edit-modal .container .form-row:last-child {
+    margin-bottom: 0 !important;
+}
+
+#edit-modal .container .field-label {
+    flex-shrink: 0 !important;
+    width: 50px !important;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    padding-top: 12px !important;
+    text-align: right !important;
+    margin: 0 !important;
+}
+
+#edit-modal .container .form-row input,
+#edit-modal .container .form-row textarea,
+#edit-modal .container .form-row select {
+    flex: 1 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 12px 16px !important;
+    border: 2px solid #e3e6ea !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-family: inherit !important;
+    transition: all 0.2s ease !important;
+    background: #ffffff !important;
+}
+
+#edit-modal .container .form-row input:focus,
+#edit-modal .container .form-row textarea:focus,
+#edit-modal .container .form-row select:focus {
+    outline: none !important;
+    border-color: #4A90E2 !important;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15) !important;
+    transform: translateY(-1px) !important;
+}
+
+#edit-modal .container .form-row textarea {
+    resize: vertical !important;
+    min-height: 70px !important;
+    line-height: 1.5 !important;
+}
+
+#edit-modal .container .form-row select {
+    cursor: pointer !important;
+    background-color: white !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 8px center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px !important;
+    padding-right: 32px !important;
+}
+
+/* 编辑模态窗口按钮区域 */
+#edit-modal .container .actions {
+    padding: 16px 24px !important;
+    display: flex !important;
+    gap: 12px !important;
+    border-top: 1px solid #e3e6ea !important;
+    background: #fafbfc !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#edit-modal .container .actions #star-btn {
+    order: 1 !important;
+    flex: 0 0 auto !important;
+    width: 50px !important;
+    padding: 12px 8px !important;
+}
+
+#edit-modal .container .actions #save-btn {
+    order: 2 !important;
+    flex: 1 !important;
+    min-width: 80px !important;
+}
+
+#edit-modal .container .actions #close-btn {
+    order: 3 !important;
+    flex: 1 !important;
+}
+
+#edit-modal .container .actions #delete-btn {
+    order: 4 !important;
+    flex: 0 0 auto !important;
+    width: 60px !important;
+    padding: 12px 8px !important;
+}
+
+/* 编辑模态窗口按钮样式 */
+#edit-modal .container .btn {
+    padding: 12px 20px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+#edit-modal .container .btn-primary {
+    background: linear-gradient(135deg, #4A90E2 0%, #357abd 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3) !important;
+}
+
+#edit-modal .container .btn-primary:hover {
+    background: linear-gradient(135deg, #357abd 0%, #2968a3 100%) !important;
+    box-shadow: 0 4px 8px rgba(74, 144, 226, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+#edit-modal .container .btn-secondary {
+    background: #ffffff !important;
+    color: #5a6c7d !important;
+    border: 2px solid #e3e6ea !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+#edit-modal .container .btn-secondary:hover {
+    background: #f8f9fa !important;
+    border-color: #d1d7db !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-1px) !important;
+}
+
+#edit-modal .container .btn-danger {
+    background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(255, 77, 79, 0.3) !important;
+}
+
+#edit-modal .container .btn-danger:hover {
+    background: linear-gradient(135deg, #cf1322 0%, #a8071a 100%) !important;
+    box-shadow: 0 4px 8px rgba(255, 77, 79, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+#edit-modal .container .btn-star {
+    background: #ffffff !important;
+    color: #ffc107 !important;
+    border: 2px solid #e3e6ea !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+#edit-modal .container .btn-star:hover {
+    background: #fff3cd !important;
+    border-color: #ffc107 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2) !important;
+}
+
+#edit-modal .container .btn-star.starred {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    color: white !important;
+    border-color: #ffc107 !important;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3) !important;
+}
+
+#edit-modal .container .btn-star.starred:hover {
+    background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%) !important;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4) !important;
+}
+
+/* 编辑模态窗口底部 */
+#edit-modal .container .footer {
+    padding: 12px 24px !important;
+    border-top: 1px solid #e3e6ea !important;
+    text-align: center !important;
+    font-size: 12px !important;
+    background: #fafbfc !important;
+}
+
+#edit-modal .container .footer a {
+    color: #4A90E2 !important;
+    text-decoration: none !important;
+    margin: 0 6px !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+#edit-modal .container .footer a:hover {
+    background: rgba(74, 144, 226, 0.1) !important;
+    text-decoration: none !important;
+}
+
+/* 编辑模态窗口消息和加载 */
+#edit-modal .container .message {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    padding: 12px 20px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+    z-index: 1000 !important;
+    min-width: 200px !important;
+    text-align: center !important;
+}
+
+#edit-modal .container .message.success {
+    background: rgba(82, 196, 26, 0.9) !important;
+}
+
+#edit-modal .container .message.error {
+    background: rgba(245, 34, 45, 0.9) !important;
+}
+
+#edit-modal .container .loading {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 999 !important;
+    border-radius: 12px !important;
+}
+
+
+/* 隐藏元素 */
+.hidden {
+    display: none !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        position: relative;
+        order: 2;
+        height: auto;
+    }
+    
+    .content {
+        order: 1;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+        padding: 8px 16px;
+    }
+    
+    .header-right {
+        justify-content: space-between;
+    }
+    
+    .view-buttons {
+        flex-shrink: 0;
+    }
+    
+    .search-container {
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .toolbar-left {
+        justify-content: space-between;
+    }
+    
+    .modal-content {
+        min-width: auto;
+        margin: 20px;
+    }
+}
+
+/* 大图模式 */
+.view-cards .bookmarks-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 24px;
+    overflow: visible;
+}
+
+/* 普通模式中隐藏左侧的favicon，在标题中显示 */
+.view-cards-simple .bookmark-left .favicon-container {
+    display: none;
+}
+
+/* 普通模式标题中的favicon */
+.view-cards-simple .bookmark-title .favicon-container {
+    display: inline-block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.view-cards-simple .bookmark-title .bookmark-favicon {
+    width: 16px;
+    height: 16px;
+}
+
+.view-cards-simple .bookmark-title .bookmark-favicon.default {
+    font-size: 10px;
+}
+
+/* 普通模式标题内favicon悬停效果 - 使用transform避免挤占布局 */
+.view-cards-simple .bookmark-item:hover .bookmark-title .favicon-container {
+    transform: scale(1.1);
+}
+
+.view-cards-simple .bookmark-item:hover .bookmark-title .bookmark-favicon {
+    transform: scale(1.1);
+}
+
+.view-cards-simple .bookmark-item:hover .bookmark-title .bookmark-favicon.default {
+    transform: scale(1.1);
+}
+
+/* 大图模式中无预览图卡片的favicon悬停效果 */
+.view-cards .bookmark-item.no-left-area:hover .bookmark-title .favicon-container {
+    transform: scale(1.1);
+}
+
+.view-cards .bookmark-item.no-left-area:hover .bookmark-title .bookmark-favicon {
+    transform: scale(1.1);
+}
+
+.view-cards .bookmark-item.no-left-area:hover .bookmark-title .bookmark-favicon.default {
+    transform: scale(1.1);
+}
+
+
+/* 普通模式 - 简洁网格布局 */
+.view-cards-simple .bookmarks-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 响应式网格 */
+@media (min-width: 1200px) {
+    .view-cards-simple .bookmarks-list {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .view-cards-simple .bookmarks-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    .view-cards-simple .bookmarks-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+}
+
+.view-cards .bookmark-item {
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    margin: 0;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    padding: 0;
+    background: #ffffff;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+    min-height: 260px;
+    transform-origin: center;
+}
+
+/* 普通模式卡片 - 简洁设计 */
+.view-cards-simple .bookmark-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 100px;
+}
+
+/* 普通模式悬停效果 */
+.view-cards-simple .bookmark-item:hover {
+    border-color: #4285f4;
+    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.15);
+    transform: translateY(-1px);
+}
+
+.view-cards .bookmark-item:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+    transform: scale(1.03);
+    border-color: #dadce0;
+    z-index: 999;
+    will-change: transform;
+}
+
+/* 普通模式内容区域 */
+.view-cards-simple .bookmark-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+/* 普通模式标题行（包含图标） */
+.view-cards-simple .bookmark-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #202124;
+    line-height: 1.3;
+}
+
+.view-cards-simple .bookmark-title .favicon-container {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.view-cards-simple .bookmark-title .bookmark-favicon {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+}
+
+.view-cards-simple .bookmark-title .bookmark-favicon.default {
+    background: #f1f3f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #5f6368;
+    border: 1px solid #e8eaed;
+}
+
+/* 普通模式描述文字 */
+.view-cards-simple .bookmark-description {
+    font-size: 12px;
+    color: #5f6368;
+    line-height: 1.4;
+    max-height: 32px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* 普通模式Meta信息（文件夹、域名、日期） */
+.view-cards-simple .bookmark-meta-info {
+    font-size: 11px;
+    color: #80868b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.view-cards-simple .meta-separator {
+    color: #dadce0;
+}
+
+/* 普通模式标签 */
+.view-cards-simple .bookmark-tags-row {
+    margin-top: 4px;
+}
+
+.view-cards-simple .bookmark-tags-row .bookmark-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.view-cards-simple .bookmark-tags-row .bookmark-tag {
+    background: #e8f0fe;
+    color: #1967d2;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 12px;
+    border: 1px solid #dadce0;
+}
+
+/* 普通模式操作按钮 */
+.view-cards-simple .bookmark-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.view-cards-simple .bookmark-item:hover .bookmark-actions {
+    opacity: 1;
+}
+
+.view-cards-simple .bookmark-actions .action-btn {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.view-cards-simple .bookmark-actions .action-btn:hover {
+    background: #f1f3f4;
+    transform: scale(1.1);
+}
+
+/* 普通模式隐藏不需要的元素 */
+.view-cards-simple .bookmark-left,
+.view-cards-simple .bookmark-url,
+.view-cards-simple .bookmark-meta,
+.view-cards-simple .bookmark-tags,
+.view-cards-simple .bookmark-folder-date,
+.view-cards-simple .bookmark-folder,
+.view-cards-simple .bookmark-date {
+    display: none;
+}
+
+/* 普通模式拖拽样式 */
+.view-cards-simple .bookmark-item.dragging {
+    opacity: 0.7;
+    transform: scale(0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.view-cards-simple .bookmark-item.drop-above,
+.view-cards-simple .bookmark-item.drop-below {
+    border-color: #4285f4;
+    background: rgba(66, 133, 244, 0.05);
+}
+
+.view-cards .bookmark-left {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+/* 没有截图时显示默认背景 */
+.view-cards .bookmark-left:not(:has(.bookmark-screenshot)) {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+.view-cards .bookmark-left:not(:has(.bookmark-screenshot))::after {
+    content: '🔖';
+    font-size: 48px;
+    opacity: 0.3;
+}
+
+.view-cards .favicon-container {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 6px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.view-cards .bookmark-item:hover .favicon-container {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.view-cards .bookmark-screenshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.view-cards .bookmark-screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.view-cards .favicon-container .bookmark-favicon {
+    width: 24px;
+    height: 24px;
+}
+
+.view-cards .bookmark-info {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    height: 110px;
+    justify-content: space-between;
+}
+
+/* 当没有左侧区域时，信息区域占用全部空间 */
+.view-cards .bookmark-item.no-left-area .bookmark-info,
+.view-cards-simple .bookmark-info {
+    padding: 20px;
+    height: auto;
+    min-height: 140px;
+}
+
+.view-cards .bookmark-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.4;
+    max-height: 44px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #202124;
+    letter-spacing: -0.01em;
+}
+
+.view-cards .bookmark-url {
+    font-size: 11px;
+    color: #5f6368;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+}
+
+.view-cards .bookmark-description {
+    font-size: 12px;
+    color: #5f6368;
+    line-height: 1.45;
+    max-height: 32px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 6px;
+    flex: 1;
+    font-weight: 400;
+}
+
+.view-cards .bookmark-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #5f6368;
+    margin-top: auto;
+}
+
+.view-cards .bookmark-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 70%;
+}
+
+.view-cards .bookmark-tag {
+    background: #e8f0fe;
+    color: #1967d2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 500;
+    border: 1px solid #e3f2fd;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-cards .bookmark-tag:hover {
+    background: #1967d2;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(25, 103, 210, 0.3);
+}
+
+.view-cards .bookmark-date {
+    white-space: nowrap;
+}
+
+.view-cards .bookmark-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    opacity: 0;
+    transition: all 0.2s ease;
+    display: flex;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 6px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.view-cards .bookmark-actions .action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 14px;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.view-cards .bookmark-actions .action-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.1);
+}
+
+.view-cards .bookmark-item:hover .bookmark-actions {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* 卡片模式拖拽样式 */
+.view-cards .bookmark-item.dragging {
+    opacity: 0.8;
+    transform: rotate(2deg) scale(0.95);
+    z-index: 1000;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.view-cards .bookmark-item.drop-above::before,
+.view-cards .bookmark-item.drop-below::after {
+    display: none;
+}
+
+.view-cards .bookmark-item.drop-above,
+.view-cards .bookmark-item.drop-below {
+    border: 2px dashed #4285f4;
+    background: rgba(66, 133, 244, 0.05);
+    transform: scale(1.02);
+}
+
